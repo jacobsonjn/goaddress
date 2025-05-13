@@ -14,7 +14,7 @@ import (
 // NewRootCommand creates a new root command.
 func NewRootCommand(cfg *config.Config) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "cli-example",
+		Use:   "toolboxcli",
 		Short: "A simple extensible CLI built with Cobra",
 		Long:  `A CLI application that demonstrates Cobra usage with a modular structure.`,
 		Run: func(cmd *cobra.Command, args []string) {

@@ -14,7 +14,7 @@ func TestBootstrap_Init(t *testing.T) {
 	rootCmd := bs.Init()
 
 	assert.NotNil(t, rootCmd, "Root command should not be nil")
-	assert.Equal(t, "cli-example", rootCmd.Use, "Root command name should be cli-example")
+	assert.Equal(t, "toolboxcli", rootCmd.Use, "Root command name should be toolboxcli")
 
 	// Check if subcommands are added
 	subcommands := rootCmd.Commands()
@@ -32,17 +32,38 @@ func TestBootstrap_Init(t *testing.T) {
 }
 
 func TestBootstrap_Execute(t *testing.T) {
-	bs := bootstrap.NewBootstrap()
-	rootCmd := bs.Init()
+	tests := []struct {
+		name     string
+		args     []string
+		expected string
+	}{
+		{
+			name:     "without verbose",
+			args:     []string{},
+			expected: "Welcome to CLI Example! Use --help for usage.\n",
+		},
+		{
+			name:     "with verbose",
+			args:     []string{"--verbose"},
+			expected: "Running in verbose mode\nWelcome to CLI Example! Use --help for usage.\n",
+		},
+	}
 
-	// Redirect output
-	var buf bytes.Buffer
-	rootCmd.SetOut(&buf)
-	rootCmd.SetErr(&buf)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			bs := bootstrap.NewBootstrap()
+			rootCmd := bs.Init()
 
-	// Execute root command
-	rootCmd.SetArgs([]string{})
-	err := rootCmd.Execute()
-	assert.NoError(t, err, "Root command execution should succeed")
-	assert.Equal(t, "Welcome to CLI Example! Use --help for usage.\n", buf.String(), "Root command should print welcome message")
+			// Redirect output
+			var buf bytes.Buffer
+			rootCmd.SetOut(&buf)
+			rootCmd.SetErr(&buf)
+
+			// Execute root command
+			rootCmd.SetArgs(tt.args)
+			err := rootCmd.Execute()
+			assert.NoError(t, err, "Root command execution should succeed")
+			assert.Equal(t, tt.expected, buf.String(), "Root command should print expected message")
+		})
+	}
 }
