@@ -21,7 +21,18 @@ func NewRootCommand(cfg *config.Config) *cobra.Command {
 			if cfg.Verbose {
 				fmt.Fprintf(cmd.OutOrStdout(), "Running in verbose mode\n")
 			}
-			fmt.Fprintf(cmd.OutOrStdout(), "Welcome to CLI Example! Use --help for usage.\n")
+			fmt.Fprintf(cmd.OutOrStdout(), `
+                  _  _                     _  _ 
+   _             | || |                   | |(_)
+ _| |_ ___   ___ | || |__   ___ _   _ ____| | _ 
+(_   _) _ \ / _ \| ||  _ \ / _ ( \ / ) ___) || |
+  | || |_| | |_| | || |_) ) |_| ) X ( (___| || |
+   \__)___/ \___/ \_)____/ \___(_/ \_)____)\_)_|
+                                                
+		   toolboxcli by jacobsonjn
+
+Use --help for usage.
+`)
 		},
 	}
 
