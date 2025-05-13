@@ -5,6 +5,7 @@ It’s designed to be extensible and testable by allowing dependency injection (
 package bootstrap
 
 import (
+	"github.com/jacobsonjn/goaddress/cmd/toolboxcli/addressparser"
 	"github.com/jacobsonjn/goaddress/cmd/toolboxcli/greet"
 	"github.com/jacobsonjn/goaddress/cmd/toolboxcli/root"
 	"github.com/jacobsonjn/goaddress/internal/config"
@@ -32,7 +33,10 @@ func (b *BootstrapCli) Init() *cobra.Command {
 	b.rootCmd = root.NewRootCommand(b.config)
 
 	// ADD NEW COMMANDS HERE:
-	b.rootCmd.AddCommand(greet.NewGreetCommand(b.config))
+	b.rootCmd.AddCommand(
+		greet.NewGreetCommand(b.config),
+		addressparser.NewAddressParserCommand(b.config),
+	)
 
 	return b.rootCmd
 }
