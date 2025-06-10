@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/addresstoolbox",
+            "env": {
+                "CGO_ENABLED": "0"
+            },
+            "args": [
+                "gnafCore2Sqlite",
+                "--input",
+                "C://Users//jared//Downloads//GNAF Core FEB 2025//G-NAFCore_FEB25_AUSTRALIA_GDA2020_PSV_1010//G-NAF Core//G-NAF Core FEBRUARY 2025//Standard//GNAF_CORE.psv"
+            ]
+        }
+    ]
+}
